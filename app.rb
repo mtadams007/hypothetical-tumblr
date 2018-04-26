@@ -1,9 +1,8 @@
 require "sinatra"
 require "sinatra/activerecord"
-require_relative "./models/friend"
 require_relative "./models/post"
 require_relative "./models/user"
-require_relative "./models/user_friend"
+
 
 set :database, {adapter: 'postgresql', database: 'hypothetical_tumbler'}
 
@@ -14,6 +13,20 @@ get '/' do
     erb :index
   else
     erb :'users/new'
+  end
+end
+
+get '/friend/:id' do
+  if user_exists?
+    if session[:id] == params[:id]
+      redirect '/profile'
+    else
+      @friend = User.find(params[:id])
+      @friend_posts = Post.where(user_id: params[:id])
+      erb :friend
+    end
+  else
+    redirect '/'
   end
 end
 
@@ -57,10 +70,10 @@ get '/logout' do
 end
 
 post '/users/new' do
-  if params[:password] != params[:password2]
+  if params[:password] != params[:password2] || User.exists?(:username => params[:username])
     redirect '/'
   else
-    @current_user = User.create(firstname: params[:firstname], lastname: params[:lastname], email: params[:email], birthday: params[:birthday], password: params[:password])
+    @current_user = User.create(firstname: params[:firstname], lastname: params[:lastname], email: params[:email], birthday: params[:birthday], username: params[:username], password: params[:password])
     session[:id] = @current_user.id
     redirect '/profile'
   end

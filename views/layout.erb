@@ -11,6 +11,7 @@
       <% if session[:id] == nil %>
        <a class="navbar-brand" href="/login">login</a>
        <% else %>
+       <a class="navbar-brand" href="/posts/new">New Question</a>
        <a class="navbar-brand" href="/logout">logout</a>
       <% end %>
       <a class="navbar-brand" href="/profile">profile</a>
