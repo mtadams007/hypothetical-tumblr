@@ -18,7 +18,11 @@ get '/' do
 end
 
 get '/posts/new' do
-  erb :'posts/new'
+  if user_exists?
+    erb :'posts/new'
+  else
+    redirect '/'
+  end
 end
 
 # USER STUFF
@@ -64,7 +68,7 @@ end
 #POSTS
 
 post '/posts/new' do
-  Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]])
+  Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
   redirect '/profile'
 end
 
