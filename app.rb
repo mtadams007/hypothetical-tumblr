@@ -44,6 +44,7 @@ end
 get '/profile' do
   if user_exists?
     @current_user=current_user
+    @posts = Post.where(user_id: session[:id])
     erb :profile
   else
     redirect '/'
@@ -69,6 +70,26 @@ end
 
 post '/posts/new' do
   Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
+  redirect '/profile'
+end
+
+put '/posts/edit/:id' do
+  @current_post = Post.find(params[:id])
+  @current_post.update(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
+  redirect '/profile'
+end
+
+get '/posts/edit/:id' do
+  if Post.find(params[:id]).user_id == session[:id]
+    @current_post = Post.find(params[:id])
+    erb :'posts/edit'
+  else
+    redirect '/'
+  end
+end
+
+delete '/posts/edit/:id' do
+  Post.destroy(params[:id])
   redirect '/profile'
 end
 
