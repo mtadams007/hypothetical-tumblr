@@ -1,4 +1,59 @@
-<h1><%= @friend.firstname %>'s Profile</h1>
-<% @friend_posts.each do |post| %>
-<h2><%= post.hypothetical %></h2>
-<% end %>
+<h1 class="text-center"><%= @friend.firstname %>'s Profile</h1>
+<div class="container">
+
+
+  <div class="row">
+    <!-- Shows them in most recent order -->
+  <% @friend_posts = @friend_posts.sort.reverse%>
+  <% @friend_posts.each do |post| %>
+  <h2></h2>
+
+  <div class="card border-primary col-12">
+    <div class="card-body">
+      <h5 class="card-title">Hypothetical</h5>
+      <p class="card-text"> <%=post.hypothetical%> </p>
+    </div>
+    <ul class="list-group list-group-flush">
+<!-- Publishes tags -->
+      <li class="list-group-item ">Tags:  <%post.tags.each do |tag|%><%if tag != '' %>#<%=tag %> <%end%><%end%></li>
+<!-- Publishes comments in drop down method -->
+      <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample<%=post.id%>" role="button" aria-expanded="false" aria-controls="multiCollapseExample<%=post.id%>">See Previous Answers!</a>
+
+      </p>
+      <div class="row">
+        <div class="col">
+          <div class="collapse multi-collapse" id="multiCollapseExample<%=post.id%>">
+            <div class="card card-body">
+              <ul>
+              <%post.comment.each do |commentary|%>
+              <li class="list-group-item"><%=commentary%></li>
+              <%end%>
+            </ul>
+            </div>
+          </div>
+        </div>
+
+
+    </ul>
+
+      <li class="list-group-item">
+        <form action="/friend/<%= @friend.id %>" method="post">
+          <input type="hidden" name="_method" value="PUT">
+          <input type="hidden" name="post_id" value="<%=post.id%>">
+          <input type="text" name="commentary" placeholder="Your thoughts">
+          <button type="submit">Answer!
+          </button>
+        </form>
+
+        </li>
+
+
+      <div class="card-body">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

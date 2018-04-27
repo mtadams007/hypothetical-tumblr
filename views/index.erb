@@ -1,14 +1,7 @@
-<h1>Index</h1>
-
-
-<!-- <h1>Sign up!</h1>
-
-<form method ="POST" action="/">
-  <input type="text" name="firstname" placeholder="First Name">
-  <input type="text" name="lastname" placeholder="Last Name">
-  <input type="text" name="email" placeholder="Email">
-  <input type="date" name="birthday">
-  <input type="password" name="password" placeholder="Password">
-  <input type="password" name="password2" placeholder="Re-enter password">
-  <button type="Submit">Sign up!</button>
-</form> -->
+<h1><%=@current_user.firstname%> <%=@current_user.lastname%></h1>
+<ul>
+  <li> Email: <%=@current_user.email%> </li>
+  <li> Username: <%=@current_user.username%> </li>
+  <li> Birthday: <%=@current_user.birthday%> </li>
+  <li> Questions asked: <%=@posts.count%></li>
+</ul>

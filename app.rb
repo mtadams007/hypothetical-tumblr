@@ -10,6 +10,8 @@ enable :sessions
 
 get '/' do
   if user_exists?
+    @current_user = current_user
+    @posts = Post.where(user_id: session[:id])
     erb :index
   else
     erb :'users/new'
@@ -91,6 +93,25 @@ put '/posts/edit/:id' do
   @current_post.update(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
   redirect '/profile'
 end
+
+put '/friend/:id' do
+  @current_post = Post.find(params[:post_id])
+
+  array = @current_post.comment
+  array2 = array.push("#{current_user.firstname} answers: #{params[:commentary]}")
+
+  @current_post.update(comment: array2)
+    @friend_posts = Post.where(user_id: params[:id])
+    @friend = User.find(params[:id])
+    if @friend == current_user
+      @current_user = current_user
+      @posts = Post.where(user_id: session[:id])
+      erb :profile
+    else
+      erb :friend
+  end
+end
+
 
 get '/posts/edit/:id' do
   if Post.find(params[:id]).user_id == session[:id]
