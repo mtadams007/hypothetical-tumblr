@@ -47,7 +47,7 @@ get '/login' do
 end
 
 post '/login' do
-  @current_user = User.find_by(email: params[:email], password: params[:password])
+  @current_user = User.find_by(username: params[:username], password: params[:password])
   if @current_user != nil
       session[:id] = @current_user.id
       redirect '/profile'
@@ -122,8 +122,22 @@ get '/posts/edit/:id' do
   end
 end
 
+put '/profile/edit/:id' do
+  @current_user = current_user
+  if params[:password] == params[:password2]
+    @current_user.update(password: params[:password])
+  end
+  redirect '/profile'
+end
+
 delete '/posts/edit/:id' do
   Post.destroy(params[:id])
+  redirect '/profile'
+end
+
+delete '/profile/edit/:id' do
+  User.destroy(params[:id])
+  session.clear
   redirect '/profile'
 end
 

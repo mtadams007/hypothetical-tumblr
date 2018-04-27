@@ -1,15 +1,35 @@
 <form action="/posts/edit/<%= @current_post.id %>" method="post">
+  <div class="form-group col-4">
   <input type="hidden" name="_method" value="PUT">
-  <input type="text" name="hypothetical" value="<%= @current_post.hypothetical %>">
+</div>
+<div class="form-group col-4">
+  <label for="hypothetical">Edit your hypothetical:</label>
+  <textarea class="form-control" name="hypothetical" rows='10'><%= @current_post.hypothetical %></textarea>
+</div>
+<div class="form-group col-4">
+  <label for="tag_one">Tag:</label>
   <input type="text" name="tag_one" value="<%=@current_post.tags[0]%>">
+</div>
+<div class="form-group col-4">
+  <label for="tag_two">Tag:</label>
   <input type="text" name="tag_two" value="<%=@current_post.tags[1]%>">
+</div>
+<div class="form-group col-4">
+  <label for="tag_three">Tag:</label>
   <input type="text" name="tag_three" value="<%=@current_post.tags[2]%>">
+</div>
+<div class="form-group col-4">
+  <label for="tag_four">Tag:</label>
   <input type="text" name="tag_four" value="<%=@current_post.tags[3]%>">
+</div>
+<div class="form-group col-4">
+  <label for="tag_five">Tag:</label>
   <input type="text" name="tag_five" value="<%=@current_post.tags[4]%>">
+</div>
 <button type="submit">Submit changes</button>
 </form>
 
 <form action="/posts/edit/<%= @current_post.id %>" method="post">
   <input type="hidden" name="_method" value="DELETE">
-  <button type="submit">DELETE FOREVER</button>
+  <button class="btn btn-danger" type="submit">DELETE FOREVER</button>
 </form>
