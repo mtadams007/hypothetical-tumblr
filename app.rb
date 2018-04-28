@@ -12,24 +12,48 @@ get '/' do
   if user_exists?
     @current_user = current_user
     @posts = Post.where(user_id: session[:id])
-    erb :index
+    redirect '/profile'
   else
     erb :'users/new'
   end
 end
 
+get '/profile' do
+  if user_exists?
+    @current_user = current_user
+    @posts = Post.where(user_id: session[:id])
+    erb :profile
+  else
+    redirect '/'
+  end
+end
+
+get '/profile/edit' do
+  if user_exists?
+    @current_user = current_user
+    @posts = Post.where(user_id: session[:id])
+    erb :'users/edit'
+  else
+    redirect '/'
+  end
+end
+
+
 get '/friend/:id' do
   if user_exists?
     if session[:id] == params[:id]
-      redirect '/profile'
+      redirect '/posts'
     else
-      @friend = User.find(params[:id])
-      @friend_posts = Post.where(user_id: params[:id])
-      erb :friend
+      @current_user = User.find(params[:id])
+      erb :posts
     end
   else
     redirect '/'
   end
+end
+
+get '/friends' do
+  erb :friends
 end
 
 get '/posts/new' do
@@ -56,11 +80,10 @@ post '/login' do
   end
 end
 
-get '/profile' do
+get '/posts' do
   if user_exists?
     @current_user=current_user
-    @posts = Post.where(user_id: session[:id])
-    erb :profile
+    erb :posts
   else
     redirect '/'
   end
@@ -69,6 +92,21 @@ end
 get '/logout' do
     session.clear
     redirect '/'
+end
+
+post '/search' do
+  if User.exists?(:username => params[:username])
+    @friend = User.find_by(username: params[:username])
+    @friend_posts = Post.where(user_id: @friend.id)
+    redirect "/friend/#{@friend.id}"
+  else
+    redirect '/friends'
+  end
+end
+
+post '/feed' do
+    @query = params[:tag]
+    erb :feed
 end
 
 post '/users/new' do
@@ -84,14 +122,14 @@ end
 #POSTS
 
 post '/posts/new' do
-  Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
+  Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id], main_tag: params[:tag_one])
   redirect '/profile'
 end
 
 put '/posts/edit/:id' do
   @current_post = Post.find(params[:id])
-  @current_post.update(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id])
-  redirect '/profile'
+  @current_post.update(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id], main_tag: params[:tag_one])
+  redirect '/posts'
 end
 
 put '/friend/:id' do
@@ -106,7 +144,7 @@ put '/friend/:id' do
     if @friend == current_user
       @current_user = current_user
       @posts = Post.where(user_id: session[:id])
-      erb :profile
+      erb :posts
     else
       erb :friend
   end
@@ -122,23 +160,26 @@ get '/posts/edit/:id' do
   end
 end
 
-put '/profile/edit/:id' do
+put '/profile/edit' do
   @current_user = current_user
+  @posts = Post.where(user_id: session[:id])
   if params[:password] == params[:password2]
     @current_user.update(password: params[:password])
+    redirect '/profile'
+  else
+    redirect '/profile/edit'
   end
-  redirect '/profile'
 end
 
 delete '/posts/edit/:id' do
   Post.destroy(params[:id])
-  redirect '/profile'
+  redirect '/posts'
 end
 
-delete '/profile/edit/:id' do
-  User.destroy(params[:id])
+delete '/profile/edit' do
+  User.destroy(session[:id])
   session.clear
-  redirect '/profile'
+  redirect '/'
 end
 
 private

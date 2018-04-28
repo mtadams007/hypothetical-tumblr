@@ -1,69 +1,10 @@
-<!-- <h1>Profile</h1>
-<% @posts.each do |post| %>
-<h2><%= post.hypothetical %></h2>
-<a href="/posts/edit/<%= post.id %>">
-  <button>Edit</button></a>
-<% end %> -->
-
-<h1 class="text-center"><%= @current_user.firstname %>'s Profile</h1>
-<div class="container">
+<h1><%=@current_user.firstname%> <%=@current_user.lastname%></h1>
+<ul>
+  <li> Email: <%=@current_user.email%> </li>
+  <li> Username: <%=@current_user.username%> </li>
+  <li> Birthday: <%=@current_user.birthday%> </li>
+  <li> Questions asked: <%=@posts.count%></li>
+</ul>
 
 
-  <div class="row">
-    <!-- Shows them in most recent order -->
-  <% @posts = @posts.sort.reverse%>
-  <% @posts.each do |post| %>
-  <h2></h2>
-
-  <div class="card border-primary col-12">
-    <div class="card-body">
-      <h5 class="card-title">Hypothetical</h5>
-      <p class="card-text"> <%=post.hypothetical%> </p>
-    </div>
-    <ul class="list-group list-group-flush">
-<!-- Publishes tags -->
-      <li class="list-group-item ">Tags:  <%post.tags.each do |tag|%><%if tag != '' %>#<%=tag %> <%end%><%end%></li>
-<!-- Publishes comments in drop down method -->
-      <p>
-        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample<%=post.id%>" role="button" aria-expanded="false" aria-controls="multiCollapseExample<%=post.id%>">See Previous Answers!</a>
-
-      </p>
-      <div class="row">
-        <div class="col">
-          <div class="collapse multi-collapse" id="multiCollapseExample<%=post.id%>">
-            <div class="card card-body">
-              <ul>
-              <%post.comment.each do |commentary|%>
-              <li class="list-group-item"><%=commentary%></li>
-              <%end%>
-            </ul>
-            </div>
-          </div>
-        </div>
-
-
-    </ul>
-
-      <li class="list-group-item">
-        <form action="/friend/<%= @current_user.id %>" method="post">
-          <input type="hidden" name="_method" value="PUT">
-          <input type="hidden" name="post_id" value="<%=post.id%>">
-          <input type="text" name="commentary" placeholder="Your thoughts">
-          <button type="submit">Answer!
-          </button>
-        </form>
-
-        </li>
-
-
-      <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
-      <a href="/posts/edit/<%= post.id %>">
-        <button>Edit</button></a>
-    </div>
-
-    <% end %>
-  </div>
-</div>
+<a href="/profile/edit"><button type="button" class="btn btn-success">Edit</button></a>

@@ -1,21 +1,7 @@
-<% @posts = Post.where(main_tag: @query) %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts @posts %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
-<% puts '.....' %>
+<% @posts = Post.where(user_id: @current_user.id).order(id: :desc).limit(20) %>
 
 
-
-<h1 class="text-center"><%= @query %> Posts</h1>
+<h1 class="text-center"><%= @current_user.firstname %>'s Posts</h1>
 <div class="container">
 
 
@@ -67,7 +53,7 @@
     </ul>
 
       <li class="list-group-item <%=@style%>">
-        <form action="/friend/<%= post.user_id %>" method="post">
+        <form action="/friend/<%= @current_user.id %>" method="post">
           <input type="hidden" name="_method" value="PUT">
           <input type="hidden" name="post_id" value="<%=post.id%>">
           <input class="form-group col-6" type="text" name="commentary" placeholder="Your thoughts">
@@ -76,7 +62,7 @@
         </form>
 
         </li>
-      <% if post.user_id == session[:id] %>
+      <% if @current_user.id == session[:id] %>
       <a href="/posts/edit/<%= post.id %>">
         <button class="btn btn-dark float-right"> Edit </button></a>
         <%end%>

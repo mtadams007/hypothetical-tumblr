@@ -9,25 +9,32 @@
   </head>
   <body>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a href='/' class="navbar-brand">Home</a>
       <% if session[:id] == nil %>
        <a class="navbar-brand" href="/login">login</a>
        <% else %>
+       <a class="navbar-brand" href="/posts">Posts</a>
+       <a class="navbar-brand" href="/friends">Friends</a>
        <a class="navbar-brand" href="/posts/new">New Question</a>
-       <a class="navbar-brand" href="/logout">logout</a>
+
+      <form action="/search" method="post" class="form-inline">
+        <input class="form-control mr-sm-2" type="search" name="username" placeholder="Search by username" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <form action="/feed" method="post" class="form-inline">
+        <input class="form-control mr-sm-2" type="search" name="tag" placeholder="Search by Tag" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <a class="navbar-brand" href="/logout">Logout</a>
       <% end %>
-      <a class="navbar-brand" href="/profile">profile</a>
-  <a class="navbar-brand">Home</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" name="user" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
+
 </nav>
 
 
     <%= yield %>
 
 
-    <footer class="fixed-bottom" style="background-color: #e3f2fd;">
+    <footer class="bottom" style="background-color: #e3f2fd;">
       <a class="navbar-brand">Copyright Michael</a>
 
     </footer>
