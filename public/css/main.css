@@ -1,0 +1,22 @@
+body {
+  padding-bottom: 100px;
+  background-image: url("/images/pattern.png");
+}
+
+h1 {
+  padding: 25px;
+}
+
+.navbar {
+  background-color: #e3f2fd;
+}
+
+.boring {
+  background-color: white;
+  /* display: inline-block; */
+}
+
+.center_me{
+
+  margin-top: 5%
+}

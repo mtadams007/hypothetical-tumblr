@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hypotheticals</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-light">
       <a href='/' class="navbar-brand">Home</a>
       <% if session[:id] == nil %>
-       <a class="navbar-brand" href="/login">login</a>
+       <a class="navbar-brand" href="/login">Login</a>
        <% else %>
        <a class="navbar-brand" href="/posts">Posts</a>
        <a class="navbar-brand" href="/friends">Friends</a>
@@ -34,7 +34,7 @@
     <%= yield %>
 
 
-    <footer class="bottom" style="background-color: #e3f2fd;">
+    <footer class="navbar fixed-bottom navbar-light" style="background-color: #e3f2fd;">
       <a class="navbar-brand">Copyright Michael</a>
 
     </footer>
