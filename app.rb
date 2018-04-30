@@ -10,7 +10,7 @@ class MyApp < Sinatra::Base
 end
 
 
-set :database, {adapter: 'postgresql', database: 'hypothetical_tumbler'}
+# set :database, {adapter: 'postgresql', database: 'hypothetical_tumbler'}
 
 enable :sessions
 
