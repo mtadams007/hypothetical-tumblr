@@ -27,7 +27,7 @@ get '/profile' do
   if user_exists?
     @current_user = current_user
     @posts = Post.where(user_id: session[:id])
-    erb :profile
+    erb :index
   else
     redirect '/'
   end
