@@ -1,7 +1,7 @@
 development:
-  adapter: postgresql
-  database: hypothetical_tumbler
+adapter: postgresql
+database: hypothetical_tumbler
 
-  production:
-    adapter: postgresql
-    host: <%= ENV['DATABASE_URL'] %>
+production:
+adapter: postgresql
+host: <%= ENV['DATABASE_URL'] %>
