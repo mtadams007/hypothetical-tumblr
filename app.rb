@@ -2,11 +2,10 @@ require "sinatra"
 require "sinatra/activerecord"
 require "will_paginate"
 require "will_paginate/active_record"
+require "will_paginate"
 require_relative "./models/Post"
 require_relative "./models/User"
-class MyApp < Sinatra::Base
-  register WillPaginate::Sinatra
-end
+
 
 
 # set :database, {adapter: 'postgresql', database: 'hypothetical_tumbler'}
