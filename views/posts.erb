@@ -1,5 +1,4 @@
-<% @posts = Post.where(user_id: @current_user.id).order(id: :desc).limit(20) %>
-
+<% @posts = Post.where(user_id: @current_user.id).order(id: :desc).paginate(:page => params[:page], :per_page => 20) %>
 
 <h1 class="text-center"><%= @current_user.firstname %>'s Posts</h1>
 <div class="container">
@@ -78,4 +77,9 @@
     <% end %>
   </div>
   <%end%>
+</div>
+<div class='center_me row justify-content-center'>
+<div class="boring col-5">
+<%= will_paginate @posts %>
+</div>
 </div>

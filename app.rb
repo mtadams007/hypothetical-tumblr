@@ -2,6 +2,12 @@ require "sinatra"
 require "sinatra/activerecord"
 require_relative "./models/post"
 require_relative "./models/user"
+require "will_paginate"
+require "will_paginate/active_record"
+
+class MyApp < Sinatra::Base
+  register WillPaginate::Sinatra
+end
 
 
 set :database, {adapter: 'postgresql', database: 'hypothetical_tumbler'}
@@ -109,10 +115,6 @@ post '/feed' do
   end
 end
 
-# post '/feed' do
-#     @query = params[:tag]
-#     erb :feed
-# end
 
 post '/users/new' do
   if params[:password] != params[:password2] || User.exists?(:username => params[:username])
