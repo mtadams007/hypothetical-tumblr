@@ -2,8 +2,8 @@ require "sinatra"
 require "sinatra/activerecord"
 require "will_paginate"
 require "will_paginate/active_record"
-require_relative "./models/post.rb"
-require_relative "./models/user.rb"
+require_relative "../models/post"
+require_relative "../models/user"
 class MyApp < Sinatra::Base
   register WillPaginate::Sinatra
 end
