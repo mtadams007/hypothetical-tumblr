@@ -1,10 +1,11 @@
+
 <div class='center_me row justify-content-center'>
-<div class="boring col-4">
-<h2> Users </h2>
+<div class="boring col-5">
+<h2 class="text-center"> All Users </h2>
 <% @users = User.all %>
-<ul>
+<ul class="list-unstyled">
 <% @users.each do |user| %>
-  <li><a href="/friend/<%=user.id%>">
+  <li class="text-center"><a href="/friend/<%=user.id%>">
 <%= user.firstname %> <%= user.lastname %> - <%= user.username %> </li>
 <% end %>
 </ul>

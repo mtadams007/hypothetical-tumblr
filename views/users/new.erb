@@ -2,41 +2,50 @@
 <div class="boring col-8">
 <h1 class="text-center">Sign up!</h1>
 
-<form method ="POST" action="/users/new">
+<form method="POST" action="/users/new" class="needs-validation" novalidate>
   <div class="form-row justify-content-center">
   <div class="form-group col-md-4">
   <label for="firstname">First Name:</label>
-  <input class="form-control" type="text" name="firstname">
+  <input class="form-control" type="text" id="firstname" name="firstname" required>
 </div>
 <div class="form-group col-md-4">
   <label for="lastname">Last Name:</label>
-  <input class="form-control" type="text" name="lastname">
+  <input class="form-control" type="text" id="lastname" name="lastname" required>
 </div>
 </div>
 <div class="form-row justify-content-center">
 <div class="form-group col-4">
   <label for="email">Email:</label>
-  <input class="form-control" type="text" name="email" placeholder="e.g. human@email.com">
+  <input id="email" class="form-control" type="email" name="email" placeholder="e.g. human@email.com" required>
+  <div class="invalid-feedback">
+        Please enter a valid email
+      </div>
 </div>
 <div class="form-group col-4">
   <label for="birthday">Birthday:</label>
-  <input class="form-control" type="date" name="birthday">
+  <input class="form-control" type="date" name="birthday" required>
 </div>
 </div>
 <div class="form-row justify-content-center">
 <div class="form-group col-4">
   <label for="username">Choose a unique Username:</label>
-  <input class="form-control" type="text" name="username">
+  <input class="form-control" type="text" name="username" required>
+  <div class="invalid-feedback">
+          Please choose a username.
+        </div>
 </div>
 </div>
 <div class="form-row justify-content-center">
 <div class="form-group col-4">
   <label for="password">Password:</label>
-  <input class="form-control" type="password" name="password" placeholder="Password">
+  <input class="form-control" type="password" name="password" pattern=".{5,}" placeholder="Password" required>
+  <div class="invalid-feedback">
+          Your password must have at least 5 characters
+        </div>
 </div>
 <div class="form-group col-4">
   <label for="password2">Confirm password:</label>
-  <input class="form-control" type="password" name="password2">
+  <input class="form-control" type="password" name="password2" required>
 </div>
 </div>
 <div class="form-row justify-content-center">

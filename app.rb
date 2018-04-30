@@ -67,14 +67,18 @@ end
 # USER STUFF
 
 get '/login' do
-  erb :login
+  if user_exists?
+    redirect '/profile'
+  else
+    erb :login
+  end
 end
 
 post '/login' do
   @current_user = User.find_by(username: params[:username], password: params[:password])
   if @current_user != nil
       session[:id] = @current_user.id
-      redirect '/profile'
+      redirect '/posts'
   else
       redirect '/login'
   end
@@ -94,20 +98,21 @@ get '/logout' do
     redirect '/'
 end
 
-post '/search' do
+post '/feed' do
   if User.exists?(:username => params[:username])
     @friend = User.find_by(username: params[:username])
     @friend_posts = Post.where(user_id: @friend.id)
     redirect "/friend/#{@friend.id}"
   else
-    redirect '/friends'
+    @query = params[:username]
+    erb :feed
   end
 end
 
-post '/feed' do
-    @query = params[:tag]
-    erb :feed
-end
+# post '/feed' do
+#     @query = params[:tag]
+#     erb :feed
+# end
 
 post '/users/new' do
   if params[:password] != params[:password2] || User.exists?(:username => params[:username])
@@ -123,7 +128,7 @@ end
 
 post '/posts/new' do
   Post.create(hypothetical: params[:hypothetical], tags: [params[:tag_one], params[:tag_two], params[:tag_three], params[:tag_four], params[:tag_five]], user_id: session[:id], main_tag: params[:tag_one])
-  redirect '/profile'
+  redirect '/posts'
 end
 
 put '/posts/edit/:id' do
@@ -146,7 +151,8 @@ put '/friend/:id' do
       @posts = Post.where(user_id: session[:id])
       erb :posts
     else
-      erb :friend
+      @current_user = @friend
+      erb :posts
   end
 end
 
