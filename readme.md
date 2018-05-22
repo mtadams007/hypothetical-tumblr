@@ -6,4 +6,9 @@ You can also comment on someones post.
 
 You can search for either a user or a main tag. Post MVP would be changing the tags to be a many to many table relationship with posts so that I can search for any tag not just the main one.
 
-This project was created using Ruby with Sinatra as the framework and an Active Record database.
+This project was created using Ruby with Sinatra as the framework and an Active Record database. This is deployed on Heroku as:
+https://hypotheticals.herokuapp.com/
+
+A sample login is:
+username: aragorn
+password: 12345
